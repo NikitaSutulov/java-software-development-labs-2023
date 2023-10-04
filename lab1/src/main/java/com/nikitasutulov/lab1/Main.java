@@ -50,7 +50,7 @@ public class Main {
             } else if (scanner.hasNext()) {
                 String stringValue = scanner.next();
                 if (stringValue.length() == 1) {
-                    values[i] = stringValue.charAt(0);
+                    values[i] = stringValue.charAt(0); // char can be also a single symbol
                 } else {
                     throw new IllegalArgumentException("All arguments must be of char type.");
                 }
