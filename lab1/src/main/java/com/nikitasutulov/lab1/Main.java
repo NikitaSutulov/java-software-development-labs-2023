@@ -30,7 +30,7 @@ public class Main {
         try {
             result = calculate(a, b, m, n, C);
             System.out.println("The result of the calculation is " + result);
-        } catch (IllegalArgumentException e) {
+        } catch (RuntimeException e) {
             throw new RuntimeException("The problem occurred during calculation: " + e.getLocalizedMessage());
         }
 
@@ -62,7 +62,7 @@ public class Main {
         return values;
     }
 
-    public static float calculate(char a, char b, char m, char n, int C) throws IllegalArgumentException {
+    public static float calculate(char a, char b, char m, char n, int C) throws IllegalArgumentException, ArithmeticException {
         if (a > n) {
             throw new IllegalArgumentException("a cannot be greater than n");
         }
@@ -73,7 +73,9 @@ public class Main {
 
         for (char i = a; i <= n; i++) {
             for (char j = b; j <= m; j++) {
-                // as char is always >= 0, no checks needed because i will never be equal to -C
+                if (i == C) {
+                    throw new ArithmeticException("i = C, which leads to division by zero");
+                }
                 sum += ((float) (i - j) / (float) (i - C));
             }
         }
