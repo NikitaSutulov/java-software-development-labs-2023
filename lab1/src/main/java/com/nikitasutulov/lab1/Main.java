@@ -42,19 +42,22 @@ public class Main {
         for (int i = 0; i < values.length; i++) {
             if (scanner.hasNextInt()) {
                 int intValue = scanner.nextInt();
-                if (intValue >= 0) {
+                if (intValue >= Character.MIN_VALUE && intValue <= Character.MAX_VALUE) {
                     values[i] = (char) intValue;
                 } else {
+                    scanner.close();
                     throw new IllegalArgumentException("All arguments must be within the char range (0 <= argument <= 65535).");
                 }
-            } else if (scanner.hasNext()) {
-                String stringValue = scanner.next();
-                if (stringValue.length() == 1) {
-                    values[i] = stringValue.charAt(0); // char can also be represented as a single symbol
-                } else {
-                    throw new IllegalArgumentException("All arguments must be of char type.");
-                }
+//            } else if (scanner.hasNext()) {
+//                String stringValue = scanner.next();
+//                if (stringValue.length() == 1) {
+//                    values[i] = stringValue.charAt(0); // char can also be represented as a single symbol
+//                } else {
+//                    scanner.close();
+//                    throw new IllegalArgumentException("All arguments must be of char type.");
+//                }
             } else {
+                scanner.close();
                 throw new IllegalArgumentException("Invalid input. Please provide char values.");
             }
         }
