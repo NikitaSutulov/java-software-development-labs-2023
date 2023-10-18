@@ -1,18 +1,36 @@
 package com.nikitasutulov.lab2;
 
+import java.util.Random;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        long[][] A = {
+        final long[][] EXAMPLE_A = {
                 {2, -6, 183},
                 {82, 9, -32},
                 {-42, 7, -28},
                 {52, 94, 4}
         };
-        long[][] B = {
+        final long[][] EXAMPLE_B = {
                 {83, 92, -43, 2},
                 {29, -35, -1, 73},
                 {37, 9, 11, 254}
         };
+
+        long[][] A;
+        long[][] B;
+
+        try {
+            System.out.println("Rows and columns for matrix A:");
+            A = getRandomMatrixFromInput();
+            System.out.println("Rows and columns for matrix B:");
+            B = getRandomMatrixFromInput();
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Problem while getting rows and columns from console input: " + e.getLocalizedMessage());
+        }
+
+//        A = EXAMPLE_A;
+//        B = EXAMPLE_B;
         long[][] C;
         System.out.println("Matrix A:");
         printMatrix(A);
@@ -36,6 +54,24 @@ public class Main {
             throw new RuntimeException("There was an exception caught while calculating average row values:\n" +
                     e.getLocalizedMessage());
         }
+    }
+
+    public static long[][] getRandomMatrixFromInput() throws IllegalArgumentException {
+        Scanner scanner = new Scanner(System.in);
+        int[] params = new int[2];
+        for (int i = 0; i < 2; i++) {
+            if (!scanner.hasNextInt()) {
+                scanner.close();
+                throw new IllegalArgumentException("There was an attempt of passing a value of a non-number type");
+            }
+            int newParam = scanner.nextInt();
+            if (newParam <= 0) {
+                scanner.close();
+                throw new IllegalArgumentException("There was an attempt of passing a non-positive value");
+            }
+            params[i] = newParam;
+        }
+        return generateRandomMatrix(params[0], params[1]);
     }
 
     public static void printArray(double[] array) {
@@ -104,5 +140,18 @@ public class Main {
             System.out.println("}");
         }
         System.out.println();
+    }
+
+    public static long[][] generateRandomMatrix(int numRows, int numCols) {
+        long[][] matrix = new long[numRows][numCols];
+        Random random = new Random();
+        long valueRange = 50;
+
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                matrix[i][j] = random.nextLong() % valueRange;
+            }
+        }
+        return matrix;
     }
 }
