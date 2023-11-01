@@ -10,12 +10,9 @@ public class Main {
             String[] filteredWords = filterUniqueWords(words);
             String[] sortedUniqueWords = filteredWords.clone();
             Arrays.sort(sortedUniqueWords, Comparator.comparing(String::toLowerCase));
-            System.out.println("\nUnfiltered words");
-            System.out.println(arrayToString(words));
-            System.out.println("\nUnique words");
-            System.out.println(arrayToString(filteredWords));
-            System.out.println("\nUnique sorted words");
-            System.out.println(arrayToString(sortedUniqueWords));
+            printStringArrayWithMessage(words, "\nUnfiltered words");
+            printStringArrayWithMessage(filteredWords, "\nUnique words");
+            printStringArrayWithMessage(sortedUniqueWords, "\nUnique sorted words");
         } catch (IOException e) {
             throw new RuntimeException("There was a problem while reading the text from the console input: " + e.getMessage());
         }
@@ -48,6 +45,11 @@ public class Main {
 
     public static String arrayToString(String[] array) {
         return Arrays.toString(array).replaceAll("[\\[\\]]", "");
+    }
+
+    public static void printStringArrayWithMessage(String[] array, String message) {
+        System.out.println(message);
+        System.out.println(arrayToString(array));
     }
 
 }
