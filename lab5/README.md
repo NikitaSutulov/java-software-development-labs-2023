@@ -19,3 +19,6 @@
 ```shell
 $ mvn clean package && java -cp target/lab5-1.0-SNAPSHOT.jar com.nikitasutulov.lab5.Main 
 ```
+
+UML-діаграма класів:
+![Діаграма](diagram.png)
