@@ -5,7 +5,18 @@ import com.nikitasutulov.lab5.entities.*;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * The Main class contains the main method and utility methods for reading text from the console,
+ * processing linguistic expressions, and printing the results.
+ */
 public class Main {
+
+    /**
+     * The main method reads text from the console, extracts and processes linguistic expressions,
+     * and prints unfiltered, unique, and sorted unique words.
+     *
+     * @param args The command-line arguments (not used in this program).
+     */
     public static void main(String[] args) {
         try {
             Text text = readTextFromConsole();
@@ -22,6 +33,12 @@ public class Main {
         }
     }
 
+    /**
+     * Reads text from the console, processes it into sentences, and creates a Text object.
+     *
+     * @return The Text object containing the processed sentences.
+     * @throws IOException If there is an error while reading from the console.
+     */
     public static Text readTextFromConsole() throws IOException {
         Scanner scanner = new Scanner(System.in);
         String line = scanner.nextLine();
@@ -36,6 +53,12 @@ public class Main {
         return new Text(sentenceObjects);
     }
 
+    /**
+     * Extracts linguistic expressions from a given sentence.
+     *
+     * @param sentence The input sentence.
+     * @return An array of LinguisticExpression objects extracted from the sentence.
+     */
     public static LinguisticExpression[] extractLinguisticExpressions(String sentence) {
         String[] words = sentence.split("[,;:\\- ]+");
         List<LinguisticExpression> linguisticExpressions = new ArrayList<>();
@@ -51,6 +74,12 @@ public class Main {
         return linguisticExpressions.toArray(new LinguisticExpression[0]);
     }
 
+    /**
+     * Creates a Word object from a given string.
+     *
+     * @param word The input string representing a word.
+     * @return The Word object created from the input string.
+     */
     public static Word createWord(String word) {
         Letter[] letters = new Letter[word.length()];
 
@@ -61,6 +90,12 @@ public class Main {
         return new Word(letters);
     }
 
+    /**
+     * Extracts words from the given Text object.
+     *
+     * @param text The input Text object.
+     * @return A list of Word objects extracted from the text.
+     */
     public static List<Word> extractWordsFromText(Text text) {
         List<Word> words = new ArrayList<>();
 
@@ -75,6 +110,12 @@ public class Main {
         return words;
     }
 
+    /**
+     * Filters out duplicate words from the given list of words.
+     *
+     * @param unfilteredWords The list of words with potential duplicates.
+     * @return A list of unique words.
+     */
     public static List<Word> filterUniqueWords(List<Word> unfilteredWords) {
         Map<String, Word> uniqueWordsMap = new LinkedHashMap<>();
 
@@ -86,6 +127,12 @@ public class Main {
         return new ArrayList<>(uniqueWordsMap.values());
     }
 
+    /**
+     * Prints an array of LinguisticExpressions with a specified message.
+     *
+     * @param array   The array of LinguisticExpressions to be printed.
+     * @param message The message to be printed before the array.
+     */
     public static void printLinguisticExpressionArrayWithMessage(LinguisticExpression[] array, String message) {
         System.out.println(message);
         for (LinguisticExpression expression : array) {
