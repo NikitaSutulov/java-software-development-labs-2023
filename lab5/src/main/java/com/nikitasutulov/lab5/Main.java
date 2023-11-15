@@ -60,7 +60,7 @@ public class Main {
      * @return An array of LinguisticExpression objects extracted from the sentence.
      */
     public static LinguisticExpression[] extractLinguisticExpressions(String sentence) {
-        String[] words = sentence.split("[,;:\\- ]+");
+        String[] words = sentence.split("[,;:\\- \t]+");
         List<LinguisticExpression> linguisticExpressions = new ArrayList<>();
 
         for (String word : words) {
