@@ -14,7 +14,7 @@ public class PunctuationMark extends LinguisticExpression {
      */
     public PunctuationMark(char value) {
         if (!Character.toString(value).matches("[.,:\\-;?!]")) {
-            throw new IllegalArgumentException("Tried to pass a non-punctuation mark char as an argument of PunctuationMark constructor.");
+            throw new IllegalArgumentException("Tried to pass a non-punctuation mark char '" + value + "' as an argument of PunctuationMark constructor.");
         }
         this.value = value;
     }

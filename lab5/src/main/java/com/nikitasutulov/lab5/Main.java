@@ -42,11 +42,12 @@ public class Main {
     public static Text readTextFromConsole() throws IOException {
         Scanner scanner = new Scanner(System.in);
         String line = scanner.nextLine();
-        String[] sentences = line.split("[.!?]");
+        String[] sentences = line.split("(?<=[.!?])");
         Sentence[] sentenceObjects = new Sentence[sentences.length];
 
         for (int i = 0; i < sentences.length; i++) {
-            sentenceObjects[i] = new Sentence(extractLinguisticExpressions(sentences[i]));
+            Sentence sentence = new Sentence(extractLinguisticExpressions(sentences[i]));
+            sentenceObjects[i] = sentence;
         }
 
         scanner.close();
@@ -60,15 +61,26 @@ public class Main {
      * @return An array of LinguisticExpression objects extracted from the sentence.
      */
     public static LinguisticExpression[] extractLinguisticExpressions(String sentence) {
-        String[] words = sentence.split("[,;:\\- \t]+");
         List<LinguisticExpression> linguisticExpressions = new ArrayList<>();
+        List<Letter> currentWordLetters = new ArrayList<>();
 
-        for (String word : words) {
-            if (!word.matches("[a-zA-Zа-яА-ЯҐґЄєЇїІі'`]+|\\d+")) {
-                linguisticExpressions.add(new PunctuationMark(word.charAt(0)));
+        for (char c : sentence.toCharArray()) {
+            if (Character.toString(c).matches("[a-zA-Zа-яА-ЯҐґЄєЇїІі'`]|\\d")) {
+                currentWordLetters.add(new Letter(c));
             } else {
-                linguisticExpressions.add(createWord(word));
+                if (!currentWordLetters.isEmpty()) {
+                    linguisticExpressions.add(new Word(currentWordLetters.toArray(Letter[]::new)));
+                    currentWordLetters.clear();
+                }
+                if (c != ' ') {
+                    linguisticExpressions.add(new PunctuationMark(c));
+                }
             }
+        }
+
+        // Handle the last word if any
+        if (!currentWordLetters.isEmpty()) {
+            linguisticExpressions.add(new Word(currentWordLetters.toArray(new Letter[0])));
         }
 
         return linguisticExpressions.toArray(new LinguisticExpression[0]);
