@@ -25,7 +25,7 @@ public class Main {
         for (String word : words) {
             if (!word.matches("[a-zA-Zа-яА-Яґєїі'`]+|\\d+")) {
                 scanner.close();
-                throw new IOException("The words can only contain letters, but there is word which does not: " + word);
+                throw new IOException("The words can only contain letters or be a number, but there is word which does not: " + word);
             }
         }
         scanner.close();
