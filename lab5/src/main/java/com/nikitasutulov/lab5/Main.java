@@ -41,8 +41,8 @@ public class Main {
      */
     public static Text readTextFromConsole() throws IOException {
         Scanner scanner = new Scanner(System.in);
-        String line = scanner.nextLine();
-        String[] sentences = line.split("(?<=[.!?])");
+        char[] lineChars = scanner.nextLine().toCharArray();
+        char[][] sentences = splitSentences(lineChars);
         Sentence[] sentenceObjects = new Sentence[sentences.length];
 
         for (int i = 0; i < sentences.length; i++) {
@@ -54,22 +54,68 @@ public class Main {
         return new Text(sentenceObjects);
     }
 
+
+    public static char[][] splitSentences(char[] lineChars) {
+        List<char[]> sentences = new ArrayList<>();
+        List<Character> currentWordLetters = new ArrayList<>();
+
+        for (char c : lineChars) {
+            if (Character.toString(c).matches("[.!?]")) {
+                writeWordChars(sentences, currentWordLetters);
+                sentences.add(new char[]{c});
+            } else if (Character.toString(c).matches("[a-zA-Zа-яА-ЯҐґЄєЇїІі'`]|\\d")) {
+                currentWordLetters.add(c);
+            } else if (c == ' ') {
+                writeWordChars(sentences, currentWordLetters);
+            } else {
+                sentences.add(new char[]{c});
+            }
+        }
+
+        // Handle the last word if any
+        if (!currentWordLetters.isEmpty()) {
+            char[] wordChars = new char[currentWordLetters.size()];
+            for (int i = 0; i < currentWordLetters.size(); i++) {
+                wordChars[i] = currentWordLetters.get(i);
+            }
+            sentences.add(wordChars);
+        }
+
+        char[][] result = new char[sentences.size()][];
+        for (int i = 0; i < sentences.size(); i++) {
+            result[i] = sentences.get(i);
+        }
+
+        return result;
+    }
+
+    private static void writeWordChars(List<char[]> sentences, List<Character> currentWordLetters) {
+        if (!currentWordLetters.isEmpty()) {
+            char[] wordChars = new char[currentWordLetters.size()];
+            for (int i = 0; i < currentWordLetters.size(); i++) {
+                wordChars[i] = currentWordLetters.get(i);
+            }
+            sentences.add(wordChars);
+            currentWordLetters.clear();
+        }
+    }
+
     /**
      * Extracts linguistic expressions from a given sentence.
      *
-     * @param sentence The input sentence.
+     * @param sentenceChars The input sentence.
      * @return An array of LinguisticExpression objects extracted from the sentence.
      */
-    public static LinguisticExpression[] extractLinguisticExpressions(String sentence) {
+    public static LinguisticExpression[] extractLinguisticExpressions(char[] sentenceChars) {
         List<LinguisticExpression> linguisticExpressions = new ArrayList<>();
         List<Letter> currentWordLetters = new ArrayList<>();
 
-        for (char c : sentence.toCharArray()) {
+        for (char c : sentenceChars) {
             if (Character.toString(c).matches("[a-zA-Zа-яА-ЯҐґЄєЇїІі'`]|\\d")) {
                 currentWordLetters.add(new Letter(c));
             } else {
                 if (!currentWordLetters.isEmpty()) {
-                    linguisticExpressions.add(new Word(currentWordLetters.toArray(Letter[]::new)));
+                    linguisticExpressions.add(createWord(currentWordLetters.toArray(new Letter[0])));
                     currentWordLetters.clear();
                 }
                 if (c != ' ') {
@@ -80,7 +126,7 @@ public class Main {
 
         // Handle the last word if any
         if (!currentWordLetters.isEmpty()) {
-            linguisticExpressions.add(new Word(currentWordLetters.toArray(new Letter[0])));
+            linguisticExpressions.add(createWord(currentWordLetters.toArray(new Letter[0])));
         }
 
         return linguisticExpressions.toArray(new LinguisticExpression[0]);
@@ -89,16 +135,10 @@ public class Main {
     /**
      * Creates a Word object from a given string.
      *
-     * @param word The input string representing a word.
-     * @return The Word object created from the input string.
+     * @param letters The input Letter array representing a word.
+     * @return The Word object created from the input Letter array.
      */
-    public static Word createWord(String word) {
-        Letter[] letters = new Letter[word.length()];
-
-        for (int i = 0; i < word.length(); i++) {
-            letters[i] = new Letter(word.charAt(i));
-        }
-
+    public static Word createWord(Letter[] letters) {
         return new Word(letters);
     }
 
