@@ -54,7 +54,12 @@ public class Main {
         return new Text(sentenceObjects);
     }
 
-
+    /**
+     * Splits a char array into sentences based on punctuation marks and spaces.
+     *
+     * @param lineChars The char array representing the input line.
+     * @return A 2D char array where each row represents a sentence.
+     */
     public static char[][] splitSentences(char[] lineChars) {
         List<char[]> sentences = new ArrayList<>();
         List<Character> currentWordLetters = new ArrayList<>();
@@ -89,6 +94,12 @@ public class Main {
         return result;
     }
 
+    /**
+     * Writes the characters of the current word to the list of sentences.
+     *
+     * @param sentences           The list of sentences to which the current word is added.
+     * @param currentWordLetters The list of characters representing the current word.
+     */
     private static void writeWordChars(List<char[]> sentences, List<Character> currentWordLetters) {
         if (!currentWordLetters.isEmpty()) {
             char[] wordChars = new char[currentWordLetters.size()];
