@@ -1,10 +1,10 @@
 package com.nikitasutulov.lab6.wagons;
 
 /**
- * The abstract PassengerWagon class represents a passenger train wagon with a specified capacity,
+ * The PassengerWagon class represents a passenger train wagon with a specified capacity,
  * passenger count, luggage count, and comfort level.
  */
-public abstract class PassengerWagon extends Wagon {
+public class PassengerWagon extends Wagon {
     /**
      * The default capacity for all passenger wagons.
      */

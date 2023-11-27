@@ -1,8 +1,10 @@
 package com.nikitasutulov.lab6.trains;
 
 import com.nikitasutulov.lab6.wagons.PassengerWagon;
+import com.nikitasutulov.lab7.MyWagonSet;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -11,16 +13,16 @@ import java.util.List;
  */
 public class PassengerTrain {
     /**
-     * The list of PassengerWagons in the train.
+     * The set of PassengerWagons in the train.
      */
-    public final List<PassengerWagon> wagons;
+    public final MyWagonSet<PassengerWagon> wagons;
 
     /**
-     * Constructs a PassengerTrain object with the specified list of PassengerWagons.
+     * Constructs a PassengerTrain object with the specified set of PassengerWagons.
      *
-     * @param wagons The list of PassengerWagons to be included in the train.
+     * @param wagons The set of PassengerWagons to be included in the train.
      */
-    public PassengerTrain(List<PassengerWagon> wagons) {
+    public PassengerTrain(MyWagonSet<PassengerWagon> wagons) {
         this.wagons = wagons;
     }
 
@@ -44,11 +46,11 @@ public class PassengerTrain {
     /**
      * Sorts the PassengerWagons in the train by comfort level.
      *
-     * @return A new list of PassengerWagons sorted by comfort level.
+     * @return A new array of PassengerWagons sorted by comfort level.
      */
-    public List<PassengerWagon> sortPassengerWagonsByComfortLevel() {
-        List<PassengerWagon> wagonsCopy = new ArrayList<>(wagons);
-        wagonsCopy.sort(Comparator.comparingInt(PassengerWagon::getComfortLevel));
-        return wagonsCopy;
+    public PassengerWagon[] sortPassengerWagonsByComfortLevel() {
+        PassengerWagon[] wagonsArray = wagons.toArray(new PassengerWagon[wagons.size()]);
+        Arrays.sort(wagonsArray, Comparator.comparingInt(PassengerWagon::getComfortLevel));
+        return wagonsArray;
     }
 }
