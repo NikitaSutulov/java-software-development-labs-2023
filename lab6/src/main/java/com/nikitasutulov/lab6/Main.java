@@ -6,6 +6,7 @@ import com.nikitasutulov.lab6.wagons.LuxPassengerWagon;
 import com.nikitasutulov.lab6.wagons.MiddlePassengerWagon;
 import com.nikitasutulov.lab6.wagons.PassengerWagon;
 import com.nikitasutulov.lab7.MyWagonSet;
+import com.nikitasutulov.lab8.WagonOverloadedException;
 
 import java.util.List;
 
@@ -23,7 +24,12 @@ public class Main {
      * @param args The command-line arguments (not used in this program).
      */
     public static void main(String[] args) {
-        MyWagonSet<PassengerWagon> wagons = getTrainWithWagons();
+        MyWagonSet<PassengerWagon> wagons = null;
+        try {
+            wagons = getTrainWithWagons();
+        } catch (WagonOverloadedException e) {
+            throw new RuntimeException(e);
+        }
         PassengerTrain train = new PassengerTrain(wagons);
         System.out.println("Passenger Wagons unsorted:");
         printWagons(train.wagons.toArray(new PassengerWagon[0]));
@@ -54,7 +60,7 @@ public class Main {
      *
      * @return The set of PassengerWagons for the train.
      */
-    private static MyWagonSet<PassengerWagon> getTrainWithWagons() {
+    private static MyWagonSet<PassengerWagon> getTrainWithWagons() throws WagonOverloadedException {
         LuxPassengerWagon luxWagon1 = new LuxPassengerWagon(30, 20);
         MiddlePassengerWagon middleWagon1 = new MiddlePassengerWagon(50, 10);
         LuxPassengerWagon luxWagon2 = new LuxPassengerWagon(15, 5);

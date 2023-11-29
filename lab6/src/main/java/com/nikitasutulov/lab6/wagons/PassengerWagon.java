@@ -1,5 +1,7 @@
 package com.nikitasutulov.lab6.wagons;
 
+import com.nikitasutulov.lab8.WagonOverloadedException;
+
 /**
  * The PassengerWagon class represents a passenger train wagon with a specified capacity,
  * passenger count, luggage count, and comfort level.
@@ -32,13 +34,23 @@ public class PassengerWagon extends Wagon {
      * @param passengerCount The number of passengers to be loaded into the wagon.
      * @param luggageCount   The number of luggage items to be loaded into the wagon.
      * @param comfortLevel   The comfort level of the passenger wagon.
-     * @throws IllegalArgumentException If the sum of passengerCount and luggageCount exceeds the capacity.
+     * @throws WagonOverloadedException If the sum of passengerCount and luggageCount exceeds the capacity.
      */
-    public PassengerWagon(int passengerCount, int luggageCount, int comfortLevel) {
+    public PassengerWagon(int passengerCount, int luggageCount, int comfortLevel) throws WagonOverloadedException {
         super(CAPACITY);
 
+        if (passengerCount < 0) {
+            throw new IllegalArgumentException("Passenger count cannot be less than zero");
+        }
+        if (luggageCount < 0) {
+            throw new IllegalArgumentException("Luggage count cannot be less than zero");
+        }
+        if (comfortLevel < 0) {
+            throw new IllegalArgumentException("Comfort level cannot be less than zero");
+        }
+
         if (passengerCount + luggageCount > CAPACITY) {
-            throw new IllegalArgumentException("Too many people and luggage to load to a wagon");
+            throw new WagonOverloadedException();
         }
 
         this.passengerCount = passengerCount;

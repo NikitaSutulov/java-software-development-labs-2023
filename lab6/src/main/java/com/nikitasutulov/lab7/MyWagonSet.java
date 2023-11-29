@@ -213,7 +213,10 @@ public class MyWagonSet<T extends PassengerWagon> implements Set<T> {
                     tail = null;
                 } else if (currentNode.equals(tail)) {
                     tail.prev.next = null;
-                    tail = null;
+                    tail = tail.prev;
+                } else if (currentNode.equals(head)) {
+                    head.next.prev = null;
+                    head = head.next;
                 } else {
                     DoubleLinkedListNode<T> previousNode = currentNode.prev;
                     DoubleLinkedListNode<T> nextNode = currentNode.next;
@@ -279,7 +282,7 @@ public class MyWagonSet<T extends PassengerWagon> implements Set<T> {
                 retainedSet.add(element);
             }
         }
-        if (retainedSet.size() < size()) {
+        if (retainedSet.size() <= size()) {
             clear();
             addAll(retainedSet);
             return true;

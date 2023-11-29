@@ -1,5 +1,7 @@
 package com.nikitasutulov.lab6.wagons;
 
+import com.nikitasutulov.lab8.WagonOverloadedException;
+
 /**
  * The LuxPassengerWagon class represents a luxury passenger train wagon
  * with a specified capacity, passenger count, luggage count, and comfort level.
@@ -17,7 +19,7 @@ public class LuxPassengerWagon extends PassengerWagon {
      * @param passengerCount The number of passengers to be loaded into the wagon.
      * @param luggageCount   The number of luggage items to be loaded into the wagon.
      */
-    public LuxPassengerWagon(int passengerCount, int luggageCount) {
+    public LuxPassengerWagon(int passengerCount, int luggageCount) throws WagonOverloadedException {
         super(passengerCount, luggageCount, COMFORT_LEVEL);
     }
 }
