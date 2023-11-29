@@ -155,15 +155,37 @@ public class MyWagonSet<T extends PassengerWagon> implements Set<T> {
     }
 
     /**
-     * Not supported; use {@link #toArray()} instead.
+     * Returns an array containing all of the elements in this set.
      *
-     * @param t1s The array into which the elements of the set are to be stored.
+     * @param a The array into which the elements of the set are to be stored, if it is big enough;
+     *          otherwise, a new array of the same runtime type is allocated for this purpose.
      * @return An array containing all the elements in the set.
-     * @throws UnsupportedOperationException if the toArray(T[] a) operation is not supported.
      */
     @Override
-    public <T1> T1[] toArray(T1[] t1s) {
-        throw new UnsupportedOperationException("toArray(T[] a) operation is not supported; use toArray() instead.");
+    public <T1> T1[] toArray(T1[] a) {
+        if (isEmpty()) {
+            return Arrays.copyOf(a, 0);
+        }
+
+        int size = size();
+        if (a.length < size) {
+            // If the array is smaller than needed, create a new array of the same type and size
+            a = Arrays.copyOf(a, size);
+        }
+
+        int index = 0;
+        DoubleLinkedListNode<T> currentNode = head;
+        while (currentNode != null) {
+            a[index++] = (T1) currentNode.value;
+            currentNode = currentNode.next;
+        }
+
+        if (a.length > size) {
+            // If the array is larger than needed, set the next element to null
+            a[size] = null;
+        }
+
+        return a;
     }
 
     /**
@@ -302,38 +324,6 @@ public class MyWagonSet<T extends PassengerWagon> implements Set<T> {
             }
         }
         return true;
-    }
-
-    /**
-     * Returns an array containing all of the elements in this set. The order of elements is the order they were added.
-     *
-     * @param array The array into which the elements of the set are to be stored, if it is big enough;
-     *              otherwise, a new array of the same runtime type is allocated for this purpose.
-     * @return An array containing all the elements in the set.
-     */
-    public T[] toArray(T[] array) {
-        if (isEmpty()) {
-            return Arrays.copyOf(array, 0);
-        }
-
-        int size = size();
-        if (array.length < size) {
-            array = Arrays.copyOf(array, size);
-        }
-
-        int index = 0;
-        DoubleLinkedListNode<T> currentNode = head;
-        while (currentNode != null) {
-            array[index++] = currentNode.value;
-            currentNode = currentNode.next;
-        }
-
-        if (array.length > size) {
-            // If the array is larger than needed, set the next element to null
-            array[size] = null;
-        }
-
-        return array;
     }
 
     /**
