@@ -7,6 +7,11 @@
 $ mvn clean package && java -cp target/lab6-1.0-SNAPSHOT.jar com.nikitasutulov.lab6.Main 
 ```
 
+Для запуску тестів, у терміналі треба ввести:
+```shell
+$ mvn clean test
+```
+
 # Лабораторна робота №6 студента групи ІМ-12 Сутулова Нікіти Олеговича
 
 Тема:
