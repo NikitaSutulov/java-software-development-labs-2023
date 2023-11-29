@@ -1,15 +1,20 @@
 package com.nikitasutulov.lab8;
 
-public class WagonOverloadedException extends Exception
-{
-    public static final String MESSAGE = "Too many people and luggage to load to a wagon";
-    public WagonOverloadedException()
-    {
-        super(MESSAGE);
-    }
+/**
+ * This exception class is thrown when attempting to load too many people and luggage into a wagon.
+ * It extends the base Exception class and provides a default error message.
+ */
+public class WagonOverloadedException extends Exception {
 
-    @Override
-    public String getMessage() {
-        return super.getMessage();
+    /**
+     * Default error message indicating that loading too many people and luggage into a wagon is not allowed.
+     */
+    public static final String MESSAGE = "Too many people and luggage to load to a wagon";
+
+    /**
+     * Constructs a new WagonOverloadedException with the default error message.
+     */
+    public WagonOverloadedException() {
+        super(MESSAGE);
     }
 }

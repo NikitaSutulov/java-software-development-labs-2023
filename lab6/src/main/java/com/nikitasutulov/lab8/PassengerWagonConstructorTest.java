@@ -6,7 +6,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains JUnit tests for the PassengerWagon class constructor, covering various scenarios.
+ * It tests the successful construction and handles cases where the construction is expected to fail
+ * due to overloaded conditions or negative arguments.
+ */
 public class PassengerWagonConstructorTest {
+
+    /**
+     * Tests the successful construction of a PassengerWagon instance.
+     */
     @Test
     public void testConstructSuccess() {
         try {
@@ -16,6 +25,9 @@ public class PassengerWagonConstructorTest {
         }
     }
 
+    /**
+     * Tests the construction failure scenarios when the wagon is expected to be overloaded.
+     */
     @Test
     public void testConstructFailsOverloaded() {
         WagonOverloadedException e = assertThrows(WagonOverloadedException.class, () -> {
@@ -34,6 +46,9 @@ public class PassengerWagonConstructorTest {
         assertEquals(e.getMessage(), "Too many people and luggage to load to a wagon");
     }
 
+    /**
+     * Tests the construction failure scenarios when negative arguments are provided.
+     */
     @Test
     public void testConstructFailsNegativeArguments() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {

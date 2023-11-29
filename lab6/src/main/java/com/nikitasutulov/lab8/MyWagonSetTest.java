@@ -13,6 +13,10 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains JUnit tests for the MyWagonSet class, which is a custom collection
+ * designed to hold instances of PassengerWagon and its subclasses.
+ */
 public class MyWagonSetTest {
 
     private MyWagonSet<PassengerWagon> set;
@@ -20,11 +24,17 @@ public class MyWagonSetTest {
     private static MiddlePassengerWagon wagon2;
     private static LuxPassengerWagon wagon3;
 
+    /**
+     * Initializes the test setup before each test method.
+     */
     @BeforeEach
     public void setup() {
         set = new MyWagonSet<>();
     }
 
+    /**
+     * Creates instances of passenger wagons before all test methods.
+     */
     @BeforeAll
     public static void createWagons() {
         try {
@@ -36,10 +46,12 @@ public class MyWagonSetTest {
         }
     }
 
+    /**
+     * Tests the size() method of the MyWagonSet class.
+     */
     @Test
     public void testSize() {
         assertEquals(0, set.size());
-
 
         set = new MyWagonSet<>(List.of(wagon1, wagon2));
         assertEquals(2, set.size());
@@ -51,6 +63,9 @@ public class MyWagonSetTest {
         assertEquals(0, set.size());
     }
 
+    /**
+     * Tests the isEmpty() method of the MyWagonSet class.
+     */
     @Test
     public void testIsEmpty() {
         assertTrue(set.isEmpty());
@@ -61,6 +76,9 @@ public class MyWagonSetTest {
         assertTrue(set.isEmpty());
     }
 
+    /**
+     * Tests the contains() method of the MyWagonSet class.
+     */
     @Test
     public void testContains() {
         assertFalse(set.contains(wagon1));
@@ -72,6 +90,9 @@ public class MyWagonSetTest {
         assertFalse(set.contains(wagon1));
     }
 
+    /**
+     * Tests the iterator() method of the MyWagonSet class.
+     */
     @Test
     public void testIterator() {
         set = new MyWagonSet<>(List.of(wagon1, wagon2));
@@ -88,6 +109,9 @@ public class MyWagonSetTest {
         assertEquals(e.getMessage(), "No more elements in the set");
     }
 
+    /**
+     * Tests the toArray() method of the MyWagonSet class.
+     */
     @Test
     public void testToArray() {
         set = new MyWagonSet<>(List.of(wagon1, wagon2, wagon3));
@@ -97,6 +121,9 @@ public class MyWagonSetTest {
         assertArrayEquals(new PassengerWagon[]{wagon1, wagon2, wagon3}, array);
     }
 
+    /**
+     * Tests the add() method of the MyWagonSet class.
+     */
     @Test
     public void testAdd() {
         assertTrue(set.add(wagon1));
@@ -107,6 +134,9 @@ public class MyWagonSetTest {
         assertTrue(set.contains(wagon2));
     }
 
+    /**
+     * Tests the remove() method of the MyWagonSet class.
+     */
     @Test
     public void testRemove() {
         set = new MyWagonSet<>(List.of(wagon1, wagon2));
@@ -118,6 +148,9 @@ public class MyWagonSetTest {
         assertFalse(set.contains(wagon2));
     }
 
+    /**
+     * Tests the addAll() method of the MyWagonSet class.
+     */
     @Test
     public void testAddAll() {
         assertTrue(set.addAll(List.of(wagon1, wagon2, wagon3)));
@@ -127,6 +160,9 @@ public class MyWagonSetTest {
         assertFalse(set.addAll(List.of(wagon1, wagon2, wagon3)));
     }
 
+    /**
+     * Tests the removeAll() method of the MyWagonSet class.
+     */
     @Test
     public void testRemoveAll() {
         set = new MyWagonSet<>(List.of(wagon1, wagon2, wagon3));
@@ -137,6 +173,9 @@ public class MyWagonSetTest {
         assertFalse(set.removeAll(List.of(wagon1, wagon3)));
     }
 
+    /**
+     * Tests the retainAll() method of the MyWagonSet class.
+     */
     @Test
     public void testRetainAll() {
         set = new MyWagonSet<>(List.of(wagon1, wagon2, wagon3));
@@ -147,6 +186,11 @@ public class MyWagonSetTest {
         assertTrue(set.retainAll(List.of(wagon1, wagon3)));
     }
 
+    /**
+     * Tests the containsAll() method of the MyWagonSet class.
+     *
+     * @throws WagonOverloadedException if an error occurs during wagon creation.
+     */
     @Test
     public void testContainsAll() throws WagonOverloadedException {
         set = new MyWagonSet<>(List.of(wagon1, wagon2, wagon3));
@@ -158,6 +202,9 @@ public class MyWagonSetTest {
         assertFalse(set.containsAll(List.of(wagon1, wagon2, wagon3, wagon4)));
     }
 
+    /**
+     * Tests the toArray() method with an argument of the MyWagonSet class.
+     */
     @Test
     public void testToArrayWithArgument() {
         set = new MyWagonSet<>(List.of(wagon1, wagon2, wagon3));
@@ -166,6 +213,9 @@ public class MyWagonSetTest {
         assertArrayEquals(new PassengerWagon[]{wagon1, wagon2, wagon3}, array);
     }
 
+    /**
+     * Tests the clear() method of the MyWagonSet class.
+     */
     @Test
     public void testClear() {
         set = new MyWagonSet<>(List.of(wagon1, wagon2, wagon3));

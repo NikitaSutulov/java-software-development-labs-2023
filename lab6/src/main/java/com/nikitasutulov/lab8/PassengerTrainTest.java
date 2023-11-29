@@ -13,12 +13,21 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains JUnit tests for the PassengerTrain class, which represents a train
+ * composed of passenger wagons.
+ */
 public class PassengerTrainTest {
 
     private static EconomPassengerWagon wagon1;
     private static MiddlePassengerWagon wagon2;
     private static LuxPassengerWagon wagon3;
 
+    /**
+     * Creates instances of passenger wagons before all test methods.
+     *
+     * @throws WagonOverloadedException if an error occurs during wagon creation.
+     */
     @BeforeAll
     public static void createWagons() throws WagonOverloadedException {
         wagon1 = new EconomPassengerWagon(30, 20);
@@ -26,6 +35,9 @@ public class PassengerTrainTest {
         wagon3 = new LuxPassengerWagon(10, 0);
     }
 
+    /**
+     * Tests the calculateTotalPassengersAndLuggage() method of the PassengerTrain class.
+     */
     @Test
     public void testCalculateTotalPassengersAndLuggage() {
         MyWagonSet<PassengerWagon> wagons = new MyWagonSet<>(Arrays.asList(wagon1, wagon2));
@@ -37,6 +49,9 @@ public class PassengerTrainTest {
         assertEquals(wagon1.getLuggageCount() + wagon2.getLuggageCount(), result.get(1));
     }
 
+    /**
+     * Tests the sortPassengerWagonsByComfortLevel() method of the PassengerTrain class.
+     */
     @Test
     public void testSortPassengerWagonsByComfortLevel() {
         MyWagonSet<PassengerWagon> wagons = new MyWagonSet<>(Arrays.asList(wagon1, wagon2, wagon3));
