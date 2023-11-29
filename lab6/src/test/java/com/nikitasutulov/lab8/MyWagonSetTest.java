@@ -107,6 +107,11 @@ public class MyWagonSetTest {
         assertFalse(iterator.hasNext());
         NoSuchElementException e = assertThrows(NoSuchElementException.class, iterator::next);
         assertEquals(e.getMessage(), "No more elements in the set");
+
+        set = new MyWagonSet<>(List.of(wagon1, wagon2));
+        iterator = set.iterator();
+        iterator.remove();
+        assertFalse(set.contains(wagon1));
     }
 
     /**

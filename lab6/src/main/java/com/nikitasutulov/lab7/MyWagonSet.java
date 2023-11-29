@@ -126,12 +126,10 @@ public class MyWagonSet<T extends PassengerWagon> implements Set<T> {
 
             /**
              * Removes the current element from the set (not supported).
-             *
-             * @throws UnsupportedOperationException if the remove operation is not supported.
              */
             @Override
             public void remove() {
-                throw new UnsupportedOperationException("Remove operation is not supported");
+                MyWagonSet.this.remove(next());
             }
         };
     }

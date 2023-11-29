@@ -3,10 +3,7 @@ package com.nikitasutulov.lab6.trains;
 import com.nikitasutulov.lab6.wagons.PassengerWagon;
 import com.nikitasutulov.lab7.MyWagonSet;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * The PassengerTrain class represents a train composed of PassengerWagons.
@@ -15,14 +12,14 @@ public class PassengerTrain {
     /**
      * The set of PassengerWagons in the train.
      */
-    public final MyWagonSet<PassengerWagon> wagons;
+    public final Set<PassengerWagon> wagons;
 
     /**
      * Constructs a PassengerTrain object with the specified set of PassengerWagons.
      *
      * @param wagons The set of PassengerWagons to be included in the train.
      */
-    public PassengerTrain(MyWagonSet<PassengerWagon> wagons) {
+    public PassengerTrain(Set<PassengerWagon> wagons) {
         this.wagons = wagons;
     }
 
