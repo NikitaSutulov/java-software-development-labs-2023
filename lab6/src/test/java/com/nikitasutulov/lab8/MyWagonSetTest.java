@@ -212,8 +212,10 @@ public class MyWagonSetTest {
      */
     @Test
     public void testToArrayWithArgument() {
+        PassengerWagon[] array = set.toArray(new PassengerWagon[0]);
+        assertArrayEquals(new PassengerWagon[0], array);
         set = new MyWagonSet<>(List.of(wagon1, wagon2, wagon3));
-        PassengerWagon[] array = set.toArray(new PassengerWagon[3]);
+        array = set.toArray(new PassengerWagon[3]);
 
         assertArrayEquals(new PassengerWagon[]{wagon1, wagon2, wagon3}, array);
     }
@@ -223,6 +225,11 @@ public class MyWagonSetTest {
      */
     @Test
     public void testClear() {
+        set.clear();
+        assertTrue(set.isEmpty());
+        set = new MyWagonSet<>(wagon1);
+        set.clear();
+        assertTrue(set.isEmpty());
         set = new MyWagonSet<>(List.of(wagon1, wagon2, wagon3));
         set.clear();
         assertTrue(set.isEmpty());
