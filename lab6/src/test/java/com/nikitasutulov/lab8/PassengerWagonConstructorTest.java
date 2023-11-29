@@ -29,39 +29,43 @@ public class PassengerWagonConstructorTest {
      * Tests the construction failure scenarios when the wagon is expected to be overloaded.
      */
     @Test
-    public void testConstructFailsOverloaded() {
+    public void testConstructFailsOverloadedMoreLuggage() {
         WagonOverloadedException e = assertThrows(WagonOverloadedException.class, () -> {
-            PassengerWagon wagon = new PassengerWagon(25, 40, 4);
+            PassengerWagon wagon = new PassengerWagon(1, 60, 4);
         });
-        assertEquals(e.getMessage(), "Too many people and luggage to load to a wagon");
+        assertEquals(e.getMessage(), "Too many people or luggage to load to a wagon");
+    }
 
-        e = assertThrows(WagonOverloadedException.class, () -> {
-            PassengerWagon wagon = new PassengerWagon(60, 15, 4);
+    @Test
+    public void testConstructFailsOverloadedMorePeople() {
+        WagonOverloadedException e = assertThrows(WagonOverloadedException.class, () -> {
+            PassengerWagon wagon = new PassengerWagon(60, 1, 4);
         });
-        assertEquals(e.getMessage(), "Too many people and luggage to load to a wagon");
-
-        e = assertThrows(WagonOverloadedException.class, () -> {
-            PassengerWagon wagon = new PassengerWagon(45, 68, 4);
-        });
-        assertEquals(e.getMessage(), "Too many people and luggage to load to a wagon");
+        assertEquals(e.getMessage(), "Too many people or luggage to load to a wagon");
     }
 
     /**
      * Tests the construction failure scenarios when negative arguments are provided.
      */
     @Test
-    public void testConstructFailsNegativeArguments() {
+    public void testConstructFailsNegativePassengerCount() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             PassengerWagon wagon = new PassengerWagon(-1, 40, 4);
         });
         assertEquals(e.getMessage(), "Passenger count cannot be less than zero");
+    }
 
-        e = assertThrows(IllegalArgumentException.class, () -> {
+    @Test
+    public void testConstructFailsNegativeLuggageCount() {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             PassengerWagon wagon = new PassengerWagon(44, -84, 4);
         });
         assertEquals(e.getMessage(), "Luggage count cannot be less than zero");
+    }
 
-        e = assertThrows(IllegalArgumentException.class, () -> {
+    @Test
+    public void testConstructFailsNegativeComfortLevel() {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             PassengerWagon wagon = new PassengerWagon(20, 20, -255);
         });
         assertEquals(e.getMessage(), "Comfort level cannot be less than zero");

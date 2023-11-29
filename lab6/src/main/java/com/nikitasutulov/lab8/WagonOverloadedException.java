@@ -9,7 +9,7 @@ public class WagonOverloadedException extends Exception {
     /**
      * Default error message indicating that loading too many people and luggage into a wagon is not allowed.
      */
-    public static final String MESSAGE = "Too many people and luggage to load to a wagon";
+    public static final String MESSAGE = "Too many people or luggage to load to a wagon";
 
     /**
      * Constructs a new WagonOverloadedException with the default error message.

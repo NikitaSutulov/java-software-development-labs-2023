@@ -258,6 +258,9 @@ public class MyWagonSet<T extends PassengerWagon> implements Set<T> {
      */
     @Override
     public boolean addAll(Collection<? extends T> collection) {
+        if (collection.isEmpty()) {
+            return true;
+        }
         boolean modified = false;
         for (T element : collection) {
             if (add(element)) {
@@ -275,6 +278,9 @@ public class MyWagonSet<T extends PassengerWagon> implements Set<T> {
      */
     @Override
     public boolean removeAll(Collection<?> collection) {
+        if (collection.isEmpty()) {
+            return true;
+        }
         boolean modified = false;
         for (Object element : collection) {
             if (remove(element)) {
