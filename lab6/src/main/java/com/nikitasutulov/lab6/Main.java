@@ -24,7 +24,7 @@ public class Main {
      * @param args The command-line arguments (not used in this program).
      */
     public static void main(String[] args) {
-        MyWagonSet<PassengerWagon> wagons = null;
+        MyWagonSet<PassengerWagon> wagons;
         try {
             wagons = getTrainWithWagons();
         } catch (WagonOverloadedException e) {
@@ -32,7 +32,7 @@ public class Main {
         }
         PassengerTrain train = new PassengerTrain(wagons);
         System.out.println("Passenger Wagons unsorted:");
-        printWagons(train.wagons.toArray(new PassengerWagon[5]));
+        printWagons(train.wagons.toArray(new PassengerWagon[0]));
 
         List<Integer> totalPassengersAndLuggage = train.calculateTotalPassengersAndLuggage();
         System.out.println("Total passengers in the train: " + totalPassengersAndLuggage.get(0));
