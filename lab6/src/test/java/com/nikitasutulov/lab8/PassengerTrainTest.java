@@ -49,6 +49,14 @@ public class PassengerTrainTest {
         assertEquals(wagon1.getLuggageCount() + wagon2.getLuggageCount(), result.get(1));
     }
 
+    @Test
+    public void testCalculateTotalPassengersAndLuggageOfEmptyTrain() {
+        PassengerTrain train = new PassengerTrain(new MyWagonSet<>());
+        List<Integer> result = train.calculateTotalPassengersAndLuggage();
+        assertEquals(0, result.get(0));
+        assertEquals(0, result.get(1));
+    }
+
     /**
      * Tests the sortPassengerWagonsByComfortLevel() method of the PassengerTrain class.
      */
@@ -62,5 +70,12 @@ public class PassengerTrainTest {
         assertEquals(1, sortedWagons[0].getComfortLevel());
         assertEquals(2, sortedWagons[1].getComfortLevel());
         assertEquals(3, sortedWagons[2].getComfortLevel());
+    }
+
+    @Test
+    public void testSortPassengerWagonsByComfortLevelWhenEmptyTrain() {
+        PassengerTrain train = new PassengerTrain(new MyWagonSet<>());
+        PassengerWagon[] result = train.sortPassengerWagonsByComfortLevel();
+        assertEquals(0, result.length);
     }
 }
