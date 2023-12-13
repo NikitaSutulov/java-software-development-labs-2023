@@ -32,7 +32,7 @@ public class Main {
         }
         PassengerTrain train = new PassengerTrain(wagons);
         System.out.println("Passenger Wagons unsorted:");
-        printWagons(train.wagons.toArray(new PassengerWagon[10]));
+        printWagons(train.wagons.toArray(new PassengerWagon[5]));
 
         List<Integer> totalPassengersAndLuggage = train.calculateTotalPassengersAndLuggage();
         System.out.println("Total passengers in the train: " + totalPassengersAndLuggage.get(0));
